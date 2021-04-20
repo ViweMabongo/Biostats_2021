@@ -117,6 +117,7 @@ summary(chicks.aov1)
 
 # Then load data
 chicks <- as_tibble(ChickWeight)
+# This to check for failing assumptions
 chicks %>% 
   filter(Time == 0) %>% 
   group_by(Diet) %>% 
@@ -124,3 +125,4 @@ chicks %>%
             var_wt = var(weight))
 #This is to specify which test to perform in a data
 compare_means(weight ~ Diet, data = filter(chicks, Time == 0, Diet %in% c(1, 2)), method = "wilcox.test")
+
