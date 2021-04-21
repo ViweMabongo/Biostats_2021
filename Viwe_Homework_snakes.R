@@ -14,7 +14,7 @@ snakes.summary <- snakes %>%
   ungroup()
 snakes.summary
 
-
+#Creating a code for 
 snakes.summary <- snakes %>% 
   group_by(day) %>% 
   summarise(mean_openings = mean(openings),
@@ -37,7 +37,7 @@ snakes.aov <- aov(openings ~ day + snake, data = snakes)
 summary(snakes.aov)
 
 par(mfrow = c(2, 2))
-# Checking assumptions...
+# Checking assumptions
 # make a histogram of the residuals;
 # they must be normal
 snakes.res <- residuals(snakes.aov)
