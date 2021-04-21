@@ -1,4 +1,4 @@
-# Author: Viwe Mabongo
+# Author: Viwe_Mabongo
 # Biostats_assignment_1
 #Date: 21 April 2021
 
