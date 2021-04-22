@@ -17,7 +17,7 @@ library(dplyr)
 
 ecklonia <- read_csv("ecklonia.csv")
 
-#Selecting columns that must be included in the dataset.
+#Selecting columns that must be excluded in the dataset.
 ecklonia_sub1 <- ecklonia %>% 
   select(-species, -site, -ID)
 
