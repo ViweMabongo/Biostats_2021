@@ -3,11 +3,12 @@
 #Day_3_Session
 
 
-
+#Loading libraries for analysis
 
 library(tidyverse)
 
-head(faithful)
+head(faithful)# Illustration of first 6 rows of the datasest.
+tail(faithful)#Illustration last 6 rows of the dataset.
 #load faithful data
 faithful <- datasets::faithful
 
@@ -19,6 +20,7 @@ slope <- round(eruption.lm$coef[2], 3)
 p.val = 0.001
 r2 <- round(summary(eruption.lm)$r.squared, 3)
 
+#Creating a ggplot illustrating linear regression Old Faithful eruption data
 ggplot(data = faithful, aes(x = waiting, y = eruptions)) +
   geom_point() +
   annotate("text", x = 45, y = 5, label = paste0("slope == ", slope, "~(min/min)"), parse = TRUE, hjust = 0) +
@@ -31,10 +33,11 @@ ggplot(data = faithful, aes(x = waiting, y = eruptions)) +
        y = "Eruption duration (minutes)")
 
 
-#Load Snake data
+#Loading Snake data
 snakes <- read_csv("data/snakes.csv")
 snakes$day = as.factor(snakes$day)
 
+#Summarising the data grouping it by day and snake
 snakes.summary <- snakes %>% 
   group_by(day, snake) %>% 
   summarise(mean_openings = mean(openings),
@@ -42,25 +45,25 @@ snakes.summary <- snakes %>%
   ungroup()
 snakes.summary
 
-#Creating a code for summary for snake data.
+#Creating a code for summary for snake data, checking mean and standard deviation.
 snakes.summary <- snakes %>% 
   group_by(day) %>% 
   summarise(mean_openings = mean(openings),
             sd_openings = sd(openings)) %>% 
-  ungroup()
+  ungroup() # To return data to its original state before it was grouped.
 snakes.summary
 
 library(Rmisc)
 snakes.summary2 <- summarySE(data = snakes, measurevar = "openings", groupvars = c("day"))
 
-#Creating a plot for snake data
+#Creating a boxplot for snake data
 ggplot(data = snakes, aes(x = day, y = openings)) +
   geom_segment(data = snakes.summary2, aes(x = day, xend = day, y = openings - ci, yend = openings + ci, colour = day),
                size = 2.0, linetype = "solid", show.legend = F) +
   geom_boxplot(aes(fill = day), alpha = 0.6, show.legend = F) + 
   geom_jitter(width = 0.05)
 
-#Creating a bargraph
+#Creating a bargraph for snake data
 ggplot(data = snakes, aes(x = day, y = openings)) +
   geom_bar(stat = "identity", fill = "red") +
   labs(x = "day", y = "Openings") +
@@ -81,6 +84,8 @@ hist(snakes.res, col = "red")
 # # they must be normal and homoscedastic
 plot(fitted(snakes.aov), residuals(snakes.aov), col = "red")
 
+# Create turkey plot, that will illustrate difference in means, confidence levels amd 
+# the adjusted p-values for all possible pairs.
 snakes.tukey <- TukeyHSD(snakes.aov, which = "day", conf.level = 0.90)
 plot(snakes.tukey, las = 1, col = "red")
 
