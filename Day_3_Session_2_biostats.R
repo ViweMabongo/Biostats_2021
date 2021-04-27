@@ -6,11 +6,11 @@
 library(tidyverse)
 library(corrplot)
 library(ggpubr)
-
+#loading date 
 ecklonia <- read_csv("data/ecklonia.csv")
 
 ecklonia_sub <- ecklonia %>% 
-  select(-species, - site, - ID)
+  select(-species, - site, - ID) # Selecting columns to be excluded denoted by minus(-) sign
 
 # Perform correlation analysis on two specific variables
 # Note that we do not need the final two arguments in this function to be stated
@@ -49,17 +49,17 @@ ggplot(data = ecklonia, aes(x = stipe_length, y = frond_length)) +
   theme_pubclean()
 
 corrplot(ecklonia_pearson, method = "circle")
-
+#Creation a plot showing correlation, the close the value is to 1 the stronger the correlatio, vice versa
 ggplot(data = ecklonia_pearson , aes(x= stipe_length, y= frond_length, fill=value)) + 
   geom_tile()
 
 
-heatmap(ecklonia_pearson, scale = "none")# Creating a heatmap
+heatmap(ecklonia_pearson, scale = "none")# Creating a heatmap to show correlation
 
 r_print <- paste0("r = ", 
                   round(cor(x = ecklonia$stipe_length, ecklonia$frond_length),2))
 
-Melt_data <- melt(r_print)
+Melt_data <- melt(r_print) # to organise the dataset
 
 
 
