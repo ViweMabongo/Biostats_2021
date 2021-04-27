@@ -13,7 +13,7 @@ library(dplyr)
 
 
 
-#load data
+#load data ecklonia data
 
 ecklonia <- read_csv("ecklonia.csv")
 
@@ -27,7 +27,7 @@ data <- round(cor(ecklonia_sub1), 2)
 #melting to organize the data
 Melted_data <- melt(data)
 
-#Create ggplot for Heatmap
+#Create ggplot for Heatmap, the closer the values are to 1 the stronge the correlation.
 ggplot(data = Melted_data, aes(x = X1, y = X2, fill = value)) +
   geom_tile() +
   theme(axis.text = element_text(angle = 45))
